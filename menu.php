@@ -6,9 +6,9 @@
 </head>
 <body>      
     <div class="menu">
-  		<a class="active" href="#home">Accueil</a>
+  		<a class="active" href="index.php">Accueil</a>
   		<a href="#reserv">Reservation</a>
-  		<a href="#liaisons">Liaisons</a>
+  		<a href="liaison.php">Liaisons</a>
 		<a href="#traverset">Traversée</a>
 		<a class="compte" href="#compte">Compte</a>
 	</div>    
