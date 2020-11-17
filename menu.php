@@ -10,7 +10,7 @@
   		<a href="#reserv">Reservation</a>
   		<a href="liaison.php">Liaisons</a>
 		<a href="#traverset">Traversée</a>
-		<a class="compte" href="#compte">Compte</a>
+		<a class="compte" href="compte.php">Compte</a>
 	</div>    
 </body>
 </html>

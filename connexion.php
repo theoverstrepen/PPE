@@ -5,6 +5,9 @@
     <link type="text/css" rel="stylesheet" href="formulaire.css">
 </head>
 <body>
+
+	
+
 	<?php //connexion BDD 
 		$BDD = array();
 		$BDD['host'] = "localhost";
@@ -20,23 +23,24 @@
     <form action="verification.php" method="post">
 		<div class="container">
 			<h1> Connexion </h1></br>
-			<label for="name">Email :</label>
-			<input type="text" placeholder="Entrer nom" id="name" name="user_mail">
+			<label for="user_mail">Email :</label>
+			<input type="text" placeholder="Entrer mail" id="user_mail" name="user_mail" required>
 				
-			<label for="mail">Mot de passe:</label>
-			<input type="password" placeholder="Entrer e-mail" id="mail" name="password">			
+			<label for="password">Mot de passe:</label>
+			<input type="password" placeholder="Entrer mot de passe" id="password" name="password" required>			
 
             <button type="submit" class="loginbtn">Connexion</button>
-            <p class="signin">Vous n'avez pas encore de compte? <a href="inscription">Inscription</a></p>
+			<!--<input type="submit" id='submit' value='LOGIN' >-->
+			<p class="signin">Vous n'avez pas encore de compte? <a href="inscription.php">Inscription</a><br>
 		</div>
+		<?php 
+			if(isset($_GET['erreur'])){
+				$err = $_GET['erreur'];
+				if($err==1 || $err==2)
+					echo "<p>Utilisateur ou mot de passe incorrect</p>";
+			}
+		?>
 	</form>
-	<?php 
-		if(isset($_GET['erreur'])){
-			$err = $_GET['erreur'];
-			if($err==1 || $err==2)
-				echo "<p>Utilisateur ou mot de passe incorrect</p>";
-		}
-	?>
 
 </body>
 </html>

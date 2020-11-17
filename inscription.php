@@ -28,8 +28,11 @@
 		<form action="inscription.php" method="post">
 		<div class="container">
 			<h1> Inscription </h1></br>
-			<label for="name">Nom :</label>
-			<input type="text" placeholder="Entrer nom" id="user_name" name="user_name">
+			<label for="name">Prenom :</label>
+			<input type="text" placeholder="Entrer prenom" id="user_name" name="user_name">
+
+			<label for="lastname">Nom :</label>
+			<input type="text" placeholder="Entrer nom" id="user_lastname" name="user_lastname">
 			
 			<label for="password">Mot de passe :</label>
 			<input type="password" placeholder="Entrer mot de passe" id="password" name="password">
@@ -46,21 +49,23 @@
 	<?php 
 	$date = date("Y-m-d");
 	if(isset($_POST['user_name'],$_POST['password'])){//l'utilisateur à cliqué sur "S'inscrire", on demande donc si les champs sont défini avec "isset"
-    	if(empty($_POST['user_name'])){//le champ pseudo est vide, on arrête l'exécution du script et on affiche un message d'erreur
-        	echo "Le champ Pseudo est vide.";
-    	} elseif(!preg_match("#^[A-Za-z]+$#",$_POST['user_name'])){//le champ pseudo est renseigné mais ne convient pas au format qu'on souhaite qu'il soit
-        	echo "Le Pseudo doit être renseigné sans accents et sans caractères spéciaux.";
+    	if(empty($_POST['user_name'])){//le champ prenom est vide, on arrête l'exécution du script et on affiche un message d'erreur
+        	echo "Le champ prenom est vide.";
     	} elseif(strlen($_POST['user_name'])>25){//le nom est trop long, il dépasse 25 caractères
         	echo "Le pseudo est trop long, il dépasse 25 caractères.";
     	} elseif(empty($_POST['password'])){//le champ mot de passe est vide
 			echo "Le champ Mot de passe est vide.";
 		} elseif($_POST['password'] != $_POST['password_confirm']){//les mots de passe ne correspondent pas
 			echo "les mots de passe ne correspondent pas.";
-    	} else {
+		} elseif(empty($_POST['user_mail'])){//le champ email est vide
+			echo "Le champ email est vide.";
+		}
+		 else {
         	//toutes les vérifications sont faites, on passe à l'enregistrement dans la base de données:
         	//Bien évidement il s'agit là d'un script simplifié au maximum, libre à vous de rajouter des conditions avant l'enregistrement comme la longueur minimum du mot de passe par exemple
         	if(!mysqli_query($mysqli,"INSERT INTO membres SET 
-			nom='".$_POST['user_name']."',
+			nom='".$_POST['user_lastname']."',
+			prenom='".$_POST['user_name']."',
 			pass='".$_POST['password']."',
 			email='".$_POST['user_mail']."',
 			date_inscription='".$date."'
