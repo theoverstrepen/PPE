@@ -12,6 +12,19 @@
 
 <?php include("menu.php"); ?>
 
+<?php //connexion BDD 
+		$BDD = array();
+		$BDD['host'] = "localhost";
+		$BDD['user'] = "root";
+		$BDD['pass'] = "";
+		$BDD['db'] = "marieteam";
+		$mysqli = mysqli_connect($BDD['host'], $BDD['user'], $BDD['pass'], $BDD['db']);
+		if(!$mysqli) {
+    		echo "Connexion non établie.";
+    		exit;
+		}
+	?>
+
 <div class="container">
   <h2>Liste des liaisons disponibles par secteur</h2>
   <table class="table table-bordered">
@@ -25,14 +38,31 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Belle ile en mer</td>
-        <td>15</td>
-        <td>8.3 miles</td>
-        <td>Quiberon</td>
-        <td>Le palais</td>
+    <?php 
+    $q mysqli_query($link, "SELECT * FROM Liaison");
+
+    $rows = mysqli_num_rows($q);
+
+    $q2 = mysqli_query($link, "SELECT nom FROM Secteur, Liaison WHERE Liaison.id_secteur = Secteur.id" );
+    $tab2 = mysqli_fetch_array($q2);
+
+    $q3 = mysqli_query($link, "SELECT * FROM port, Liaison WHERE Liaison, id_port_départ = port_départ.id ");
+    $tab3 = mysqli_fetch_array($q3);
+
+    $q4 = mysqli_query($link, "SELECT * FROM port, Liaison WHERE Liaison, id_port_arrivee = port_arrivee.id");
+    $tab4 = mysqli_fetch_array($q4);
+
+    for ($i = 0, $i < $rows, $i++){
+      $tab = mysqli_fetch_array($q)
+    }
+     echo '<tr>';
+     echo '<td>' = $tab2['nom']. '</td>';
+     echo '<td>' = $tab['code']. '</td>';
+     echo '<td>' = $tab['distance']. '</td>';
+     echo '<td>' = $tab3['nom']. '</td>';
+     echo '<td>' = $tab4['nom']. '</td>';
       </tr>
-      <tr>
+     /*echo '<tr>';
         <td></td>
         <td>24</td>
         <td>9 miles</td>
@@ -72,8 +102,10 @@
       <td>21</td>
       <td>8.8</td>
       <td>Port St-Gidas</td>
-      <td>Quiberon</td>
+      <td>Quiberon</td>*/
+      ?>
     </tbody>
+    
   </table>
 </div>
 
