@@ -12,18 +12,13 @@
 
 <?php include("menu.php"); ?>
 
-<?php //connexion BDD 
-		$BDD = array();
-		$BDD['host'] = "localhost";
-		$BDD['user'] = "root";
-		$BDD['pass'] = "";
-		$BDD['db'] = "marieteam";
-		$mysqli = mysqli_connect($BDD['host'], $BDD['user'], $BDD['pass'], $BDD['db']);
-		if(!$mysqli) {
-    		echo "Connexion non établie.";
-    		exit;
-		}
-	?>
+<?php
+try{
+	$bdd = new PDO('mysql:host=localhost;dbname = marieteam;charset = utf-8','root','');
+}catch(Exception $e){
+	die('Erreur :' .$e->getMessage());
+}
+?>
 
 <div class="container">
   <h2>Liste des liaisons disponibles par secteur</h2>
@@ -62,42 +57,42 @@
      echo '<td>' = $tab3['nom']. '</td>';
      echo '<td>' = $tab4['nom']. '</td>';
       </tr>
-     /*echo '<tr>';
+     echo '<tr>';
         <td></td>
         <td>24</td>
         <td>9 miles</td>
         <td>Le palais</td>
         <td>Quiberon</td>
-        </tr>
-      <tr>
+        '</tr>'
+      echo '<tr>'
         <td></td>
         <td>16</td>
         <td>8 miles</td>
         <td>Quiberon</td>
         <td>Sauzon</td>
-      </tr>
-      <tr>
+       '</tr>'
+      echo '<tr>'
        <td>Houat</td>
        <td>12</td>
        <td>7.9 miles</td>
        <td>Sauzon</td>
        <td>Quiberon</td>
      </tr>
-     <tr>
+     echo '<tr>'
       <td></td>
       <td>14</td>
       <td>23.7 miles</td>
       <td>Vannes</td>
       <td>Le palais</td>
      </tr>
-     <tr>
+     echo '<tr>'
       <td>Ile de Groix</td>
       <td>22</td>
       <td>25.1 miles</td>
       <td>Le palais</td>
       <td>Vannes</td>
      </tr>
-     <tr>
+     echo '<tr>'
       <td></td>
       <td>21</td>
       <td>8.8</td>
