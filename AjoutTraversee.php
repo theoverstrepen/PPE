@@ -1,10 +1,17 @@
-
+			<form name = "form" method = "post" action="">
+				Selectionnez un bateau pour la traversée : <input type ="" name = "Bateau"><br />
+				Entrez la date de la traversée : <input type="date" name="date"/><br/>
+				Entrez l'heure de la traversée : <input type="time" name="heure"/> <br/>
+				<input type="submit" name="validAdd" value="Ajouter"/> <br/>
+			</form>
 			<?php
 				$servername = 'localhost'; //nom du serveur de connexion
-				$dbname = 'marieteam'; //nom de la bdd
+				$dbname = 'marieteam2'; //nom de la bdd
             	$username = 'root'; // identifiant
             	$password = ''; //mot de passe (laissez comme tel si vide)
-            
+ 
+//-----------------------------------------Partie Destinée à la connexion, ignorez si déja présent lors de la copie--------------------------
+
             //On établit la connexion
             	$base = new mysqli($servername, $username, $password);
             	$base = mysqli_connect($servername, $username,$password, $dbname);
@@ -13,22 +20,16 @@
 				{
 					echo 'Connexion réussie.<br />';
 					echo 'Informations sur le serveur:'.mysqli_get_host_info($base).'<br />';
+
 				}  
 				else 
 				{
 					echo('Erreur %d : %s.<br/>'.mysqli_connect_errno().mysqli_connect_error().'<br />');
-				} 
-			
-			//On imprime les traversées
-				$requete = 'SELECT * FROM traverse';
-				$result = mysqli_query($base,$requete);
-				while ($ligne = mysqli_fetch_assoc($result))
-				{
-					echo '['.$ligne['numTraversee'].']'.$ligne['DateTraversee'].' '.$ligne['heureTraverse'].' <br />';
 				}
+
+//---------------------------------------Fin de la Partie Connexion---------------------------------------------------------------------------
 			
 			
-            //situation dépendantes d'une condition:
                 //Appuyer sur le bouton du formulaire
 				if(isset($_POST['validAdd']))
 				{
@@ -40,31 +41,20 @@
 					
 					//Ecriture de la requête dans la base
 					
-					$sql = "INSERT INTO traverse(numTraversee,DateTraversee,heureTraverse) VALUES ('".$compteur."', '".$date."','".$heure."')";
+					$sql = "INSERT INTO traverse(DateTraversee,heureTraverse) VALUES ('".$date."','".$heure."')";
 
 					echo $sql.'<br />';
-					echo $compteur.'<br />';
 					$resultat = mysqli_query($base, $sql);
-					
-				    echo "Traversée enregistrée.<br />";
-            
-				 	//si il y a une tentative de fermeture de la base
-					if (mysqli_close($base)) 
+					if($resultat = TRUE)
 					{
-						echo 'Déconnexion réussie.<br />'; // Afficher "Déconnexion réussie" si c'est un succès
+						echo "reussite";
 					}
-
 					else 
 					{
-						echo 'Echec de la déconnexion.'; //Afficher "Echec de la déconnexion." si cela échoue
+						echo "echec";
 					}
-
-					//Ici on vident les variables puis redirige vers le formulaire
-					unset($date);
-					unset($heure);
-					unset($sql);
-					header("Location: http://localhost:8070/PPEtest/zonetest.php");
-
-                }
+				    echo "Traversée enregistrée.<br />";
+				}
+//-----------------------Partie Deconnexion et redirection----------------------------------------------------------------------------------------------
                
 			?>
